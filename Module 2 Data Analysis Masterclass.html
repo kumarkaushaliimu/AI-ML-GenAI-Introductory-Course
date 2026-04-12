@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=960, initial-scale=1.0">
+  <title>Module 2: Data Analysis Masterclass</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+    
+    .slide { 
+      width: 960px; 
+      height: 540px; 
+      margin: 20px auto; 
+      display: flex; 
+      flex-direction: column;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      page-break-after: always;
+    }
+    
+    .slide-header { 
+      background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%); 
+      color: white; 
+      padding: 20px 30px;
+      border-bottom: 3px solid #10b981;
+    }
+    
+    .slide-header h1 { font-size: 2.2rem; margin-bottom: 5px; font-weight: 700; }
+    .slide-header p { font-size: 1rem; opacity: 0.95; }
+    
+    .slide-content { 
+      flex: 1; 
+      padding: 30px; 
+      overflow: auto;
+      font-size: 0.95rem;
+    }
+    
+    .slide-content h2 { color: #0891b2; margin-bottom: 15px; font-size: 1.8rem; font-weight: 700; }
+    .slide-content h3 { color: #0e7490; margin-top: 12px; margin-bottom: 10px; font-size: 1.2rem; }
+    .slide-content p { line-height: 1.6; margin-bottom: 10px; color: #333; }
+    .slide-content ul { margin-left: 20px; }
+    .slide-content li { margin-bottom: 6px; line-height: 1.5; }
+    
+    .image-container { text-align: center; margin: 12px 0; }
+    .image-container img { max-width: 100%; max-height: 240px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .image-label { font-size: 0.75rem; color: #666; margin-top: 3px; font-style: italic; }
+    
+    .card { background: #f0f9fa; border-left: 4px solid #0891b2; padding: 10px; border-radius: 4px; font-size: 0.85rem; }
+    .card h4 { color: #0891b2; margin-bottom: 5px; font-weight: 600; font-size: 0.95rem; }
+    .card ul { margin-left: 15px; }
+    .card li { margin-bottom: 3px; font-size: 0.8rem; }
+    
+    .code-box { background: #1e293b; color: #e2e8f0; padding: 8px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.7rem; overflow-x: auto; margin: 6px 0; line-height: 1.3; }
+    
+    .success { background: #ecfdf5; padding: 8px; border-left: 4px solid #10b981; border-radius: 4px; margin: 6px 0; font-size: 0.85rem; }
+    .warning { background: #fef2f2; padding: 8px; border-left: 4px solid #ef4444; border-radius: 4px; margin: 6px 0; font-size: 0.85rem; }
+    .info { background: #f0f9ff; padding: 8px; border-left: 4px solid #0891b2; border-radius: 4px; margin: 6px 0; font-size: 0.85rem; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    
+    .title-slide { background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #164e63 100%); color: white; }
+    .title-slide-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1; padding: 40px; }
+    .title-slide h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 700; }
+    .title-slide p { font-size: 1.2rem; margin: 10px 0; opacity: 0.95; }
+    
+    .data-table { width: 100%; font-size: 0.7rem; border-collapse: collapse; margin: 6px 0; }
+    .data-table th { background: #0891b2; color: white; padding: 4px; text-align: left; }
+    .data-table td { padding: 3px; border-bottom: 1px solid #e5e7eb; }
+    .data-table tr:nth-child(even) { background: #f0f9fa; }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide title-slide">
+  <div class="title-slide-content">
+    <h1>📊 Data Analysis Masterclass</h1>
+    <p style="font-size: 1.3rem; color: #a5f3fc;">Module 2: NumPy, Pandas & Visualization</p>
+    <p style="font-size: 1.1rem; margin-top: 20px;">Transform Raw Data into Actionable Insights</p>
+    <p style="font-size: 0.95rem; margin-top: 30px; opacity: 0.9;">AI Career Bootcamp | November 2025 | Final Year Graduates</p>
+  </div>
+</div>
+
+<!-- Slide 2: Module Overview -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📚 Module 2 Learning Path</h1>
+    <p>Master data analysis tools for production AI/ML systems</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>🔢 NumPy</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Arrays & shapes</li>
+          <li>10-100x faster</li>
+          <li>Math operations</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📋 Pandas</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>DataFrames</li>
+          <li>Data cleaning</li>
+          <li>Groupby & pivot</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📊 Visualization</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Matplotlib plots</li>
+          <li>Seaborn stats</li>
+          <li>Interactive charts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🔍 EDA</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Univariate analysis</li>
+          <li>Bivariate patterns</li>
+          <li>Insights discovery</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🧹 Cleaning</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Missing values</li>
+          <li>Duplicates</li>
+          <li>Outliers</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🎯 Career</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Interview prep</li>
+          <li>Real projects</li>
+          <li>Kaggle ready</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info" style="margin-top: 8px; font-size: 0.8rem;">
+      <strong>Goal:</strong> Master data tools → Ready for Machine Learning (Module 5), Scikit-learn, TensorFlow
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: Why NumPy? -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>⚡ NumPy: Why 10-100x Faster?</h1>
+    <p>The foundation of all scientific Python libraries</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">NumPy Advantages</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>✓ Vectorized operations</li>
+          <li>✓ Memory efficient</li>
+          <li>✓ C backend (fast)</li>
+          <li>✓ Broadcasting</li>
+          <li>✓ Linear algebra</li>
+          <li>✓ Pandas foundation</li>
+        </ul>
+      </div>
+      <div class="code-box">
+# Python list vs NumPy
+import numpy as np
+import time
+
+# Slow: Python loop
+list_data = list(range(1000000))
+start = time.time()
+result = [x**2 for x in list_data]
+print(f"List: {time.time()-start:.4f}s")
+
+# Fast: NumPy vectorization
+arr = np.arange(1000000)
+start = time.time()
+result = arr**2
+print(f"NumPy: {time.time()-start:.4f}s")
+# NumPy is 10-100x faster!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: NumPy Arrays -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔢 NumPy Arrays: 1D, 2D, 3D</h1>
+    <p>Multi-dimensional arrays for numerical computing</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763496477/search_images/61791c27b87531fc75eaf6553eaa69bb36f71d5c.jpg" alt="NumPy Arrays">
+        <div class="image-label">NumPy multi-dimensional arrays visualization</div>
+      </div>
+      <div class="code-box">
+import numpy as np
+
+# 1D array
+arr_1d = np.array([1, 2, 3, 4, 5])
+print(arr_1d.shape)  # (5,)
+
+# 2D array (matrix)
+arr_2d = np.array([[1, 2, 3],
+                   [4, 5, 6]])
+print(arr_2d.shape)  # (2, 3)
+
+# 3D array
+arr_3d = np.array([[[1, 2],
+                    [3, 4]],
+                   [[5, 6],
+                    [7, 8]]])
+print(arr_3d.shape)  # (2, 2, 2)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Array Creation -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🛠️ Creating NumPy Arrays</h1>
+    <p>Different methods for array initialization</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import numpy as np
+
+# Method 1: Direct creation
+arr = np.array([1, 2, 3, 4, 5])
+
+# Method 2: Special arrays
+zeros = np.zeros((3, 3))      # All zeros
+ones = np.ones((2, 4))         # All ones
+identity = np.eye(3)           # Identity matrix
+
+# Method 3: Ranges
+range_arr = np.arange(0, 10, 2)  # [0, 2, 4, 6, 8]
+linspace_arr = np.linspace(0, 1, 5)  # 5 equally spaced
+
+# Method 4: Random
+random_arr = np.random.rand(3, 3)        # Random [0, 1)
+random_int = np.random.randint(0, 10, (3, 3))  # Random integers
+
+# Method 5: Diagonal matrix
+diag = np.diag([1, 2, 3])  # Diagonal matrix
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Array Operations -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>➕ NumPy Operations: Element-wise & Matrix</h1>
+    <p>Arithmetic and linear algebra operations</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+import numpy as np
+
+arr1 = np.array([1, 2, 3, 4])
+arr2 = np.array([5, 6, 7, 8])
+
+# Element-wise operations
+print(arr1 + arr2)    # [6 8 10 12]
+print(arr1 * arr2)    # [5 12 21 32]
+print(arr1 / arr2)    # Element division
+print(arr1 ** 2)      # [1 4 9 16]
+
+# Matrix operations
+mat_a = np.array([[1, 2], [3, 4]])
+mat_b = np.array([[5, 6], [7, 8]])
+result = np.dot(mat_a, mat_b)  # Matrix mult
+result = mat_a @ mat_b         # Same
+      </div>
+      <div class="code-box">
+# Statistical operations
+print(np.sum(arr1))       # 10
+print(np.mean(arr1))      # 2.5
+print(np.std(arr1))       # Std dev
+print(np.max(arr1))       # 4
+print(np.min(arr1))       # 1
+
+# Matrix properties
+transpose = mat_a.T
+trace = np.trace(mat_a)
+det = np.linalg.det(mat_a)
+inverse = np.linalg.inv(mat_a)
+
+# Sorting & searching
+sorted_arr = np.sort(arr1)
+argmax = np.argmax(arr1)  # Index of max
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Indexing & Slicing -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 NumPy Indexing & Slicing</h1>
+    <p>Access and extract array elements efficiently</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import numpy as np
+
+arr = np.array([10, 20, 30, 40, 50])
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# 1D indexing
+print(arr[0])        # 10 (first)
+print(arr[-1])       # 50 (last)
+print(arr[1:4])      # [20 30 40] (slice)
+print(arr[::2])      # [10 30 50] (every 2nd)
+
+# 2D indexing
+print(matrix[0, 0])  # 1 (row 0, col 0)
+print(matrix[1, 2])  # 6 (row 1, col 2)
+print(matrix[2, :])  # [7 8 9] (entire row)
+print(matrix[:, 1])  # [2 5 8] (entire column)
+
+# Boolean indexing
+mask = arr > 25
+print(arr[mask])     # [30 40 50]
+
+# Fancy indexing
+indices = np.array([0, 2, 4])
+print(arr[indices])  # [10 30 50]
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Math Functions -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📐 Mathematical Functions</h1>
+    <p>Trigonometric, exponential, logarithmic operations</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>Trigonometric</h4>
+        <div class="code-box" style="font-size: 0.65rem;">
+arr = np.array([0, 1, 2])
+print(np.sin(arr))
+print(np.cos(arr))
+print(np.tan(arr))
+        </div>
+      </div>
+      <div class="card">
+        <h4>Exponential</h4>
+        <div class="code-box" style="font-size: 0.65rem;">
+print(np.exp(arr))    # e^x
+print(np.log(arr))    # ln(x)
+print(np.log10(arr))  # log10
+print(np.sqrt(arr))   # sqrt
+        </div>
+      </div>
+      <div class="card">
+        <h4>Rounding</h4>
+        <div class="code-box" style="font-size: 0.65rem;">
+arr = [1.5, 2.8, 3.2]
+np.floor(arr)  # [1, 2, 3]
+np.ceil(arr)   # [2, 3, 4]
+np.round(arr)  # [2, 3, 3]
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9: Pandas Introduction -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 Pandas: Series & DataFrames</h1>
+    <p>Labeled data structures for data manipulation</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1764250777/search_images/8d6e701bb8742c67631e6de72e0e079328b5d717.jpg" alt="Pandas DataFrame">
+        <div class="image-label">DataFrame structure with rows and columns</div>
+      </div>
+      <div class="code-box">
+import pandas as pd
+
+# Series (1D labeled array)
+s = pd.Series([10, 20, 30], 
+              index=['a', 'b', 'c'])
+
+# DataFrame (2D table)
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 28],
+    'Salary': [50000, 60000, 55000]
+})
+
+# Explore
+print(df.head())     # First 5
+print(df.shape)      # (3, 3)
+print(df.info())     # Data types
+print(df.describe()) # Statistics
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10: Data Import/Export -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📥 Data Import & Export</h1>
+    <p>Read and write from multiple sources</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+import pandas as pd
+
+# Read data
+df = pd.read_csv('data.csv')
+df = pd.read_excel('data.xlsx')
+df = pd.read_json('data.json')
+df = pd.read_sql(query, connection)
+df = pd.read_html(url)[0]
+
+# With parameters
+df = pd.read_csv('data.csv', 
+    sep=',', 
+    header=0, 
+    na_values=['NA', 'N/A'])
+      </div>
+      <div class="code-box">
+# Write data
+df.to_csv('output.csv', index=False)
+df.to_excel('output.xlsx', sheet_name='Data')
+df.to_json('output.json', orient='records')
+df.to_sql('table_name', connection, 
+          if_exists='append')
+
+# Get file info
+df.info()
+df.head()
+df.tail()
+df.shape
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: DataFrame Exploration -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔍 DataFrame Exploration</h1>
+    <p>Understand your data structure and content</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+# Shape and structure
+print(df.shape)              # (rows, cols)
+print(df.columns)            # Column names
+print(df.dtypes)             # Data types
+print(df.index)              # Row indices
+
+# Statistical summary
+print(df.describe())         # Numeric columns
+print(df.describe(include='all'))  # All columns
+print(df.mean(), df.median(), df.std())
+
+# Value analysis
+print(df['Category'].value_counts())  # Frequencies
+print(df['Category'].nunique())       # Unique count
+print(df['Category'].unique())        # Unique values
+
+# Missing values
+print(df.isnull().sum())     # Missing per column
+print(df.isnull().sum().sum())  # Total missing
+
+# Correlations
+print(df.corr(numeric_only=True))  # Pearson correlation
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Indexing & Filtering -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 Pandas Indexing & Filtering</h1>
+    <p>Access and filter data by label and position</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+# Label-based (loc)
+print(df.loc[0])           # First row
+print(df.loc[0, 'Name'])   # Specific cell
+
+# Position-based (iloc)
+print(df.iloc[0])          # First row
+print(df.iloc[0:2])        # First two rows
+
+# Boolean filtering
+print(df[df['Age'] > 26])                    # Single condition
+print(df[(df['Age'] > 25) & (df['City'] == 'NYC')])  # Multiple
+
+# Using isin()
+print(df[df['City'].isin(['NYC', 'LA'])])   # Multiple values
+
+# Using query()
+print(df.query('Age > 25 and Salary > 50000'))
+
+# Conditional assignment
+df.loc[df['Age'] > 30, 'Senior'] = 'Yes'
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: GroupBy & Aggregation -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 GroupBy & Aggregation</h1>
+    <p>Group data and compute aggregate statistics</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+# GroupBy with single aggregation
+by_dept = df.groupby('Department')['Salary'].mean()
+print(by_dept)
+
+# GroupBy with multiple aggregations
+agg_result = df.groupby('Department')['Salary'].agg(['mean', 'sum', 'count', 'std'])
+
+# GroupBy multiple columns
+by_dept_city = df.groupby(['Department', 'City'])['Salary'].mean()
+
+# Custom aggregations
+def custom_stat(x):
+    return x.max() - x.min()
+
+result = df.groupby('Department')['Salary'].agg(custom_stat)
+
+# Reset index
+result = result.reset_index()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Pivot Tables -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔀 Pivot Tables & Cross-tabulation</h1>
+    <p>Reshape data for different perspectives</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+# Pivot table
+pivot = pd.pivot_table(df, 
+    values='Salary', 
+    index='Department', 
+    columns='Gender', 
+    aggfunc='mean')
+print(pivot)
+
+# Cross-tabulation (frequency)
+ct = pd.crosstab(df['Gender'], df['Department'])
+print(ct)
+
+# With margins (totals)
+ct_margin = pd.crosstab(df['Gender'], df['Department'], 
+                        margins=True)
+
+# Multiple aggregations
+pivot_multi = pd.pivot_table(df,
+    values=['Salary', 'Age'],
+    index='Department',
+    aggfunc={'Salary': 'mean', 'Age': 'median'})
+    </div>
+  </div>
+</div>
+
+<!-- Slide 15: Merging & Joining -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔗 Merging, Concatenating & Joining</h1>
+    <p>Combine multiple DataFrames</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+
+# Concatenation (stacking)
+df1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+df2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]})
+concat_result = pd.concat([df1, df2], ignore_index=True)
+
+# Merge (SQL-like JOIN)
+df_left = pd.DataFrame({'Key': ['A', 'B'], 'Val1': [1, 2]})
+df_right = pd.DataFrame({'Key': ['A', 'B'], 'Val2': [3, 4]})
+merged = pd.merge(df_left, df_right, on='Key', how='inner')
+# how: 'inner', 'outer', 'left', 'right'
+
+# Join on index
+joined = df1.join(df2, rsuffix='_right')
+
+# Append (deprecated - use concat)
+appended = df1.append(df2)  # Avoid - use concat
+    </div>
+  </div>
+</div>
+
+<!-- Slide 16: Data Cleaning -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🧹 Data Cleaning: Duplicates & Missing</h1>
+    <p>Prepare data for analysis and modeling</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+# Remove duplicates
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Alice'],
+    'Age': [25, 30, 25]
+})
+
+df_clean = df.drop_duplicates()
+
+# Based on specific columns
+df_clean = df.drop_duplicates(
+    subset=['Name'], keep='first')
+
+# Keep last/first
+df_clean = df.drop_duplicates(keep='last')
+
+# Count duplicates
+dup_count = df.duplicated().sum()
+      </div>
+      <div class="code-box">
+# Handle missing values
+df = pd.DataFrame({
+    'A': [1, 2, None, 4],
+    'B': [5, None, None, 8]
+})
+
+# Detect
+print(df.isnull())
+print(df.isnull().sum())
+
+# Remove rows with NaN
+df_clean = df.dropna()
+df_clean = df.dropna(thresh=2)
+
+# Fill missing
+df_filled = df.fillna(0)
+df_filled = df.fillna(df.mean())
+df_filled = df.fillna(method='ffill')
+df_filled = df.interpolate()
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 17: Matplotlib Basics -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📈 Matplotlib: Basic Plotting</h1>
+    <p>Create professional data visualizations</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763961255/search_images/1091b95eb8851d3ab2816fdf7a8c03ca34aaf00d.jpg" alt="Data Visualization">
+        <div class="image-label">Line, scatter, bar plot examples</div>
+      </div>
+      <div class="code-box">
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Line plot
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+plt.plot(x, y, label='sin(x)')
+plt.plot(x, np.cos(x), label='cos(x)')
+plt.legend()
+plt.title("Trigonometric")
+plt.show()
+
+# Scatter plot
+plt.scatter([1, 2, 3], [1, 2, 3])
+plt.title("Scatter")
+plt.show()
+
+# Bar plot
+plt.bar(['A', 'B', 'C'], [1, 2, 3])
+plt.title("Bar Chart")
+plt.show()
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 18: Plot Customization -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎨 Customizing Plots</h1>
+    <p>Colors, styles, markers, legends, labels</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import matplotlib.pyplot as plt
+
+# Create figure
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Plot with customization
+ax.plot([1, 2, 3], [1, 2, 3], 
+        color='red', 
+        linestyle='--', 
+        linewidth=2, 
+        marker='o', 
+        markersize=8,
+        label='Line 1')
+
+ax.plot([1, 2, 3], [3, 2, 1],
+        color='blue',
+        linestyle=':',
+        marker='^',
+        label='Line 2')
+
+# Labels and legend
+ax.set_xlabel('X Axis', fontsize=12)
+ax.set_ylabel('Y Axis', fontsize=12)
+ax.set_title('Plot Title', fontsize=14, fontweight='bold')
+ax.legend(loc='upper right')
+ax.grid(True, alpha=0.3)
+
+# Color: 'r', 'g', 'b', 'c', 'm', 'y', 'k', 'w', or hex
+# Linestyle: '-', '--', '-.', ':'
+# Marker: 'o', 's', '^', 'D', '*', '+', 'x'
+
+plt.tight_layout()
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 19: Subplots & Histograms -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 Subplots & Histograms</h1>
+    <p>Multiple plots and distribution visualization</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Subplots (2x2 grid)
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+# Plot in each subplot
+axes[0, 0].plot([1, 2, 3], [1, 2, 3])
+axes[0, 0].set_title("Plot 1")
+
+axes[0, 1].scatter([1, 2, 3], [1, 2, 3])
+axes[0, 1].set_title("Plot 2")
+
+axes[1, 0].bar(['A', 'B', 'C'], [1, 2, 3])
+axes[1, 0].set_title("Plot 3")
+
+# Histogram
+data = np.random.normal(100, 15, 1000)
+axes[1, 1].hist(data, bins=30, edgecolor='black')
+axes[1, 1].axvline(np.mean(data), color='red', linestyle='--', label='Mean')
+axes[1, 1].set_title("Histogram")
+axes[1, 1].legend()
+
+plt.tight_layout()
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 20: Box & Violin Plots -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📦 Box Plots & Violin Plots</h1>
+    <p>Distribution and quartile visualization</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Sample data
+data = [np.random.normal(0, std, 100) for std in [1, 1.5, 2]]
+
+# Box plot (shows quartiles, median, outliers)
+ax1.boxplot(data, labels=['A', 'B', 'C'])
+ax1.set_title("Box Plot")
+ax1.set_ylabel("Values")
+ax1.grid(True, alpha=0.3)
+
+# Violin plot (shows full distribution)
+parts = ax2.violinplot(data, positions=[1, 2, 3])
+ax2.set_title("Violin Plot")
+ax2.set_xticks([1, 2, 3])
+ax2.set_xticklabels(['A', 'B', 'C'])
+ax2.set_ylabel("Values")
+ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 21: Seaborn Heatmaps -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔥 Seaborn Heatmaps & Correlation</h1>
+    <p>Visualize correlation matrices and relationships</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763666424/search_images/7a2ad642d302044ab3677cdfdeaece136c03e774.jpg" alt="Correlation Heatmap">
+        <div class="image-label">Heatmap showing data correlations</div>
+      </div>
+      <div class="code-box">
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Create sample data
+df = pd.DataFrame({
+    'A': [1, 2, 3, 4, 5],
+    'B': [2, 4, 5, 4, 6],
+    'C': [5, 4, 3, 2, 1],
+    'D': [1, 1, 2, 3, 3]
+})
+
+# Correlation heatmap
+corr = df.corr()
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, 
+    cmap='coolwarm', center=0,
+    square=True)
+plt.title("Correlation Matrix")
+plt.show()
+
+# Distribution heatmap
+data = np.random.rand(10, 10)
+sns.heatmap(data, cmap='YlOrRd')
+plt.show()
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 22: Seaborn Advanced -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 Seaborn: Pair Plots & Distributions</h1>
+    <p>Advanced statistical visualizations</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import seaborn as sns
+import pandas as pd
+
+# Load sample data
+df = sns.load_dataset('iris')
+
+# Scatter plot with hue
+sns.scatterplot(data=df, x='sepal_length', y='petal_length', 
+                hue='species', s=100)
+plt.show()
+
+# Pair plot (scatter matrix)
+sns.pairplot(df, hue='species')
+plt.show()
+
+# Count plot (categorical distribution)
+sns.countplot(data=df, x='species', palette='Set2')
+plt.show()
+
+# Joint plot (bivariate distribution)
+sns.jointplot(data=df, x='sepal_length', y='petal_length', 
+              kind='hex')
+plt.show()
+
+# Violin plot with category
+sns.violinplot(data=df, x='species', y='sepal_length')
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 23: EDA Workflow -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔍 Exploratory Data Analysis (EDA)</h1>
+    <p>Complete workflow for data understanding</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763873382/search_images/35083f5d2b469bf3c4ef065802544119bfba08a0.jpg" alt="EDA Workflow">
+        <div class="image-label">Complete EDA process and pipeline</div>
+      </div>
+      <div class="card">
+        <h4>EDA Steps</h4>
+        <ol style="font-size: 0.75rem;">
+          <li><strong>Load:</strong> Import data</li>
+          <li><strong>Inspect:</strong> Shape, types</li>
+          <li><strong>Clean:</strong> Missing, duplicates</li>
+          <li><strong>Explore:</strong> Distributions</li>
+          <li><strong>Analyze:</strong> Relationships</li>
+          <li><strong>Visualize:</strong> Charts</li>
+          <li><strong>Summarize:</strong> Insights</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 24: Univariate Analysis -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 Univariate Analysis</h1>
+    <p>Analyze individual variable distributions</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('data.csv')
+
+# Numeric variable analysis
+print(df['Age'].describe())
+print(f"Skewness: {df['Age'].skew()}")
+print(f"Kurtosis: {df['Age'].kurtosis()}")
+
+# Visualizations
+fig, axes = plt.subplots(1, 3, figsize=(15, 4))
+
+# Histogram
+axes[0].hist(df['Age'], bins=20, edgecolor='black')
+axes[0].set_title("Histogram")
+
+# KDE plot (smooth distribution)
+df['Age'].plot(kind='kde', ax=axes[1])
+axes[1].set_title("KDE Plot")
+
+# Box plot
+axes[2].boxplot(df['Age'])
+axes[2].set_title("Box Plot")
+
+plt.tight_layout()
+plt.show()
+
+# Categorical analysis
+print(df['Category'].value_counts())
+sns.countplot(data=df, x='Category')
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 25: Bivariate Analysis -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔀 Bivariate Analysis</h1>
+    <p>Examine relationships between two variables</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('tips')
+
+# Numeric vs Numeric
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Scatter plot
+sns.scatterplot(data=df, x='total_bill', y='tip', ax=ax1)
+ax1.set_title("Total Bill vs Tip")
+
+# Regression plot
+sns.regplot(data=df, x='total_bill', y='tip', ax=ax2)
+ax2.set_title("Total Bill vs Tip (with regression)")
+
+plt.tight_layout()
+plt.show()
+
+# Categorical vs Numeric
+sns.boxplot(data=df, x='day', y='total_bill', hue='sex')
+plt.title("Total Bill by Day and Sex")
+plt.show()
+
+# Categorical vs Categorical
+pd.crosstab(df['day'], df['sex'])
+sns.heatmap(pd.crosstab(df['day'], df['sex']), annot=True, fmt='d')
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 26: Multivariate Analysis -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 Multivariate Analysis</h1>
+    <p>Explore relationships among multiple variables</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('iris')
+
+# Pair plot (scatter plot matrix)
+sns.pairplot(df, hue='species', diag_kind='kde')
+plt.show()
+
+# Correlation heatmap
+corr = df.corr(numeric_only=True)
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap='coolwarm', center=0)
+plt.title("Correlation Matrix")
+plt.show()
+
+# Joint plot - bivariate distribution
+sns.jointplot(data=df, x='sepal_length', y='petal_length',
+              kind='scatter', hue=df['species'])
+plt.show()
+
+# Multiple variables with categorical
+sns.catplot(data=df, x='species', y='sepal_length', 
+            kind='violin', height=6)
+plt.show()
+    </div>
+  </div>
+</div>
+
+<!-- Slide 27: Case Study: Complete EDA -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>💼 Case Study: Real-World EDA</h1>
+    <p>Complete analysis pipeline with insights</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box" style="font-size: 0.65rem;">
+import pandas as pd, numpy as np, matplotlib.pyplot as plt, seaborn as sns
+
+# 1. Load & Inspect
+df = pd.read_csv('ecommerce_data.csv')
+print(f"Shape: {df.shape}")
+print(f"Missing: {df.isnull().sum().sum()}")
+
+# 2. Clean Data
+df = df.dropna(subset=['Price', 'Rating'])
+df = df.drop_duplicates()
+df['Price'] = pd.to_numeric(df['Price'], errors='coerce')
+
+# 3. Univariate Analysis
+fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+axes[0].hist(df['Price'], bins=30, edgecolor='black')
+axes[1].hist(df['Rating'], bins=10, edgecolor='black')
+plt.show()
+
+# 4. Bivariate Analysis
+sns.scatterplot(data=df, x='Price', y='Rating')
+plt.show()
+
+# 5. Multivariate Analysis
+corr = df[['Price', 'Rating', 'Reviews']].corr()
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.show()
+
+# 6. Insights
+print(f"Average Price: ${df['Price'].mean():.2f}")
+print(f"Average Rating: {df['Rating'].mean():.2f}")
+print(f"Most Common Category: {df['Category'].mode()[0]}")
+    </div>
+  </div>
+</div>
+
+<!-- Slide 28: Interview Tips -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>💼 Interview Preparation</h1>
+    <p>Master these data analysis concepts</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">Interview Topics</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>NumPy vs Python performance</li>
+          <li>DataFrame operations</li>
+          <li>Missing value strategies</li>
+          <li>Data normalization</li>
+          <li>Visualization selection</li>
+          <li>EDA workflow</li>
+          <li>Real data problems</li>
+        </ul>
+      </div>
+      <div class="success">
+        <h4 style="color: #10b981;">Practice Projects</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Kaggle datasets</li>
+          <li>Missing value handling</li>
+          <li>Data visualization</li>
+          <li>Statistical analysis</li>
+          <li>Feature engineering</li>
+          <li>Correlation analysis</li>
+          <li>End-to-end EDA</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 29: Best Practices -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>✅ Production-Ready Data Analysis</h1>
+    <p>Best practices for professional work</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">✓ Do This</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Vectorize operations</li>
+          <li>Document assumptions</li>
+          <li>Handle edge cases</li>
+          <li>Validate data quality</li>
+          <li>Create reproducible code</li>
+          <li>Version control data</li>
+          <li>Automate pipelines</li>
+        </ul>
+      </div>
+      <div class="warning">
+        <h4 style="color: #ef4444;">✗ Don't Do This</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Skip data cleaning</li>
+          <li>Ignore missing values</li>
+          <li>Hardcode file paths</li>
+          <li>Modify raw data</li>
+          <li>Use loops instead of vectorize</li>
+          <li>No error handling</li>
+          <li>Unclear variable names</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 30: Ready for Machine Learning -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🚀 Ready for Machine Learning</h1>
+    <p>How Module 2 prepares you for Module 5</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>NumPy Skills</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Array operations</li>
+          <li>Matrix math</li>
+          <li>Broadcasting</li>
+          <li>All ML uses it</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Pandas Skills</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Data cleaning</li>
+          <li>Feature creation</li>
+          <li>Data validation</li>
+          <li>Critical for ML</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Visualization</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Understand data</li>
+          <li>Communicate results</li>
+          <li>Debug models</li>
+          <li>Stakeholder reports</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info" style="margin-top: 8px; font-size: 0.8rem;">
+      <strong>ML Pipeline:</strong> Data Collection → Cleaning (Pandas) → Analysis (NumPy) → Visualization → Feature Engineering → Model Training → Evaluation
+    </div>
+  </div>
+</div>
+
+<!-- Slide 31: Learning Path -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📚 Your AI/ML Career Path</h1>
+    <p>Building toward production ML systems</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="card">
+        <h4>✓ Completed</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Module 0: Python Basics</li>
+          <li>Module 1: Advanced Python</li>
+          <li>Module 2: Data Analysis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>→ Coming Next</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Module 3: EDA Deep Dive</li>
+          <li>Module 4: Features</li>
+          <li>Module 5: ML Algorithms</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Advanced Track</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Deep Learning</li>
+          <li>NLP/CV</li>
+          <li>Production Deployment</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Timeline</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Weeks 1-2: Data Tools</li>
+          <li>Weeks 3-4: EDA</li>
+          <li>Weeks 5-8: ML Algorithms</li>
+          <li>Weeks 9-12: Projects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 32: Resources & References -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📖 References & Learning Resources</h1>
+    <p>Continue your learning journey</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="card">
+        <h4>📚 Essential Books</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Python for Data Analysis - McKinney</li>
+          <li>NumPy Cookbook</li>
+          <li>Data Science Handbook</li>
+          <li>Clean Code - Martin</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🎓 Online Resources</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>NumPy docs (numpy.org)</li>
+          <li>Pandas docs (pandas.pydata.org)</li>
+          <li>Real Python tutorials</li>
+          <li>DataCamp courses</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>🏆 Practice Platforms</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>Kaggle (competitions)</li>
+          <li>GitHub (projects)</li>
+          <li>Google Colab (notebooks)</li>
+          <li>Jupyter (local work)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>📊 Official Docs</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>NumPy Reference</li>
+          <li>Pandas API</li>
+          <li>Matplotlib Gallery</li>
+          <li>Seaborn Examples</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 33: Key Takeaways -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 Module 2: Key Takeaways</h1>
+    <p>Essential skills for data professionals</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">Master These</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>✓ NumPy arrays (10-100x faster)</li>
+          <li>✓ DataFrame manipulation</li>
+          <li>✓ Data cleaning & validation</li>
+          <li>✓ Exploratory data analysis</li>
+          <li>✓ Data visualization</li>
+          <li>✓ Statistical analysis</li>
+          <li>✓ Real-world workflows</li>
+        </ul>
+      </div>
+      <div class="info">
+        <h4 style="color: #0891b2;">Career Readiness</h4>
+        <ul style="font-size: 0.75rem;">
+          <li>💼 Extract data insights</li>
+          <li>💼 Clean real datasets</li>
+          <li>💼 Create visualizations</li>
+          <li>💼 Communicate findings</li>
+          <li>💼 Automate workflows</li>
+          <li>💼 Pass data interviews</li>
+          <li>💼 Ready for Kaggle</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 34: Thank You & Next Module -->
+<div class="slide" style="background: linear-gradient(135deg, #0891b2 0%, #06b6d4 50%, #164e63 100%);">
+  <div class="title-slide-content">
+    <h1 style="font-size: 2.8rem; color: #a5f3fc;">🎓 Congratulations!</h1>
+    <p style="font-size: 1.2rem; color: white; margin-bottom: 20px;">Module 2: Data Analysis Complete!</p>
+    
+    <div style="font-size: 0.95rem; color: white; line-height: 1.8; margin: 20px 0;">
+      <p><strong style="color: #a5f3fc;">You Now Understand:</strong></p>
+      <p>🔢 NumPy arrays & vectorization</p>
+      <p>📊 Pandas DataFrames & manipulation</p>
+      <p>📈 Data visualization (Matplotlib/Seaborn)</p>
+      <p>🔍 Complete EDA workflows</p>
+      <p>🧹 Professional data cleaning</p>
+    </div>
+    
+    <p style="font-size: 1rem; color: #a5f3fc; margin-top: 30px; font-weight: 600;">Ready for Module 5: Machine Learning Algorithms! 🚀</p>
+    <p style="font-size: 0.95rem; color: white; opacity: 0.9;">AI Career Bootcamp | November 2025 | Your Path to ML Mastery</p>
+  </div>
+</div>
+
+</body>
+</html>

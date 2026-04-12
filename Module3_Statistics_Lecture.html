@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Advanced Statistics for AI/ML - Complete Interactive Lecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d4ff;
+            --secondary: #ff6b6b;
+            --accent: #4ecdc4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f0f23;
+            --darker: #1a1a2e;
+            --light: #f0f4f8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary);
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Slide base */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            border-radius: 2rem;
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.8) 0%, rgba(10, 10, 20, 0.95) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .slide::before {
+            content: attr(data-slide);
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .slide h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--primary);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+            border-color: var(--accent);
+        }
+
+        .card.success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .card.warning {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .card.error {
+            border-color: var(--secondary);
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .process-step {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.2) 0%, rgba(0, 212, 255, 0.2) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+            min-width: 150px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .process-step:hover {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: var(--dark);
+            transform: scale(1.05);
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        /* Infographics */
+        .infographic {
+            background: linear-gradient(135deg, rgba(30, 30, 46, 0.6) 0%, rgba(40, 40, 60, 0.6) 100%);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        th {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        tr:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: rgba(20, 20, 40, 0.8);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            color: #10b981;
+            line-height: 1.6;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 1.5rem 0;
+        }
+
+        /* Charts */
+        .chart-container {
+            background: rgba(20, 20, 40, 0.8);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Formulas */
+        .formula {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--primary);
+            padding: 2rem;
+            border-radius: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+            font-family: 'Times New Roman', serif;
+            margin: 1.5rem 0;
+            font-weight: 600;
+        }
+
+        /* Highlights */
+        .highlight {
+            background: linear-gradient(120deg, rgba(0, 212, 255, 0.2), rgba(78, 205, 196, 0.2));
+            border-left: 5px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .highlight.important {
+            border-left-color: var(--secondary);
+            background: linear-gradient(120deg, rgba(255, 107, 107, 0.2), rgba(255, 107, 107, 0.1));
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide {
+            animation: slideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+
+            .slide h2 {
+                font-size: 2rem;
+            }
+
+            nav .container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 1rem;
+            }
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .mb-8 { margin-bottom: 2rem; }
+
+        .mt-2 { margin-top: 0.5rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-6 { margin-top: 1.5rem; }
+        .mt-8 { margin-top: 2rem; }
+
+        .text-sm { font-size: 0.9rem; }
+        .text-lg { font-size: 1.25rem; }
+        .text-xl { font-size: 1.5rem; }
+
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- Navigation -->
+<nav>
+    <div class="container">
+        <h1>📊 Module 3: Advanced Statistics</h1>
+        <div>
+            <a href="#intro">Intro</a>
+            <a href="#sampling">Sampling</a>
+            <a href="#descriptive">Descriptive</a>
+            <a href="#distributions">Distributions</a>
+            <a href="#inferential">Inferential</a>
+            <a href="#testing">Testing</a>
+        </div>
+    </div>
+</nav>
+
+<!-- SLIDE 1: TITLE -->
+<div class="container">
+    <section class="slide" data-slide="1/50" id="intro">
+        <div class="text-center">
+            <h1>Advanced Statistics for Machine Learning & AI</h1>
+            <p style="font-size: 1.5rem; color: var(--accent); margin: 2rem 0;">The Mathematical Foundation for Data-Driven Decision Making</p>
+            <p style="font-size: 1.1rem; color: var(--primary); margin: 2rem 0;">📚 Module 3 • Final Year Graduates • AI Job Preparation</p>
+            <div style="margin-top: 3rem;">
+                <span class="badge">Statistics Fundamentals</span>
+                <span class="badge">Hypothesis Testing</span>
+                <span class="badge">A/B Testing</span>
+                <span class="badge">Career Skills</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: WHY STATISTICS MATTERS -->
+    <section class="slide" data-slide="2/50">
+        <h2>🎯 Why Statistics Matters in AI/ML</h2>
+        <div class="grid-2">
+            <div>
+                <h3>🔍 Model Validation</h3>
+                <ul>
+                    <li>Confidence intervals for predictions</li>
+                    <li>Hypothesis testing for performance</li>
+                    <li>Statistical significance testing</li>
+                    <li>Cross-validation strategies</li>
+                </ul>
+            </div>
+            <div>
+                <h3>🛠️ Feature Engineering</h3>
+                <ul>
+                    <li>Correlation analysis</li>
+                    <li>Feature importance ranking</li>
+                    <li>Statistical tests for selection</li>
+                    <li>Distribution analysis</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight">
+            ✨ <strong>Key Insight:</strong> Every machine learning decision is fundamentally a statistical inference problem. Understanding statistics separates junior data scientists from industry leaders.
+        </div>
+    </section>
+
+    <!-- SLIDE 3: STATISTICS BRANCHES -->
+    <section class="slide" data-slide="3/50">
+        <h2>📈 Two Pillars of Statistics</h2>
+        <div class="grid-2">
+            <div class="card success">
+                <h3>📊 Descriptive Statistics</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;"><strong>Summarize & Describe Data</strong></p>
+                <ul style="margin-left: 1rem;">
+                    <li>Mean, Median, Mode</li>
+                    <li>Variance & Standard Deviation</li>
+                    <li>Skewness & Kurtosis</li>
+                    <li>Percentiles & Quartiles</li>
+                    <li>Correlation & Covariance</li>
+                </ul>
+                <p style="color: var(--success); font-weight: 600; margin-top: 1rem;">✓ Answer: "What does the data look like?"</p>
+            </div>
+            <div class="card">
+                <h3>🔬 Inferential Statistics</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;"><strong>Make Predictions & Generalizations</strong></p>
+                <ul style="margin-left: 1rem;">
+                    <li>Hypothesis testing</li>
+                    <li>Confidence intervals</li>
+                    <li>Statistical significance</li>
+                    <li>A/B testing</li>
+                    <li>Bayesian inference</li>
+                </ul>
+                <p style="color: var(--primary); font-weight: 600; margin-top: 1rem;">✓ Answer: "What can we infer from samples?"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: DATA TYPES -->
+    <section class="slide" data-slide="4/50">
+        <h2>🏷️ Data Classification System</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Examples</th>
+                    <th>Analysis Methods</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Categorical</strong></td>
+                    <td>No inherent order</td>
+                    <td>Gender, Color, City</td>
+                    <td>Chi-square, Mode</td>
+                </tr>
+                <tr>
+                    <td><strong>Ordinal</strong></td>
+                    <td>Natural ordering</td>
+                    <td>Ratings 1-5, Education Level</td>
+                    <td>Percentiles, Median</td>
+                </tr>
+                <tr>
+                    <td><strong>Discrete Numerical</strong></td>
+                    <td>Countable integers</td>
+                    <td>Number of items, Age (years)</td>
+                    <td>Mean, Variance, Binomial</td>
+                </tr>
+                <tr>
+                    <td><strong>Continuous Numerical</strong></td>
+                    <td>Any value in range</td>
+                    <td>Height, Weight, Temperature</td>
+                    <td>Mean, Std Dev, Normal distribution</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="highlight important">
+            ⚠️ <strong>Critical:</strong> Choosing the wrong analysis method for your data type leads to invalid conclusions. Always identify your data type first!
+        </div>
+    </section>
+
+    <!-- SLIDE 5: SAMPLING TECHNIQUES -->
+    <section class="slide" data-slide="5/50" id="sampling">
+        <h2>📊 Sampling Strategies for Real World</h2>
+        <div class="infographic">
+            <div class="grid-3">
+                <div class="card">
+                    <h3>🎲 Simple Random</h3>
+                    <p><strong>Method:</strong> Random.choice() from population</p>
+                    <p><strong>Pros:</strong> Unbiased, statistically sound</p>
+                    <p><strong>Cons:</strong> Need complete population list</p>
+                    <p style="color: var(--success); margin-top: 1rem;">✓ Best for most ML applications</p>
+                </div>
+                <div class="card">
+                    <h3>🏗️ Stratified</h3>
+                    <p><strong>Method:</strong> Sample from each subgroup proportionally</p>
+                    <p><strong>Pros:</strong> Ensures representation</p>
+                    <p><strong>Cons:</strong> Need strata information</p>
+                    <p style="color: var(--success); margin-top: 1rem;">✓ Critical for imbalanced datasets</p>
+                </div>
+                <div class="card">
+                    <h3>🔄 Cluster</h3>
+                    <p><strong>Method:</strong> Randomly select entire clusters</p>
+                    <p><strong>Pros:</strong> Cost-effective</p>
+                    <p><strong>Cons:</strong> Less precise than random</p>
+                    <p style="color: var(--success); margin-top: 1rem;">✓ Use when population is grouped</p>
+                </div>
+            </div>
+        </div>
+        <div class="code-block">
+import pandas as pd
+import numpy as np
+
+# Simple Random Sampling
+sample = df.sample(n=1000, random_state=42)
+
+# Stratified Sampling (for imbalanced classes)
+sample = df.groupby('target', group_keys=False).apply(
+    lambda x: x.sample(frac=0.2)
+)
+        </div>
+    </section>
+
+    <!-- SLIDE 6: CENTRAL TENDENCY -->
+    <section class="slide" data-slide="6/50" id="descriptive">
+        <h2>📏 Measures of Central Tendency</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>📊 Mean (μ)</h3>
+                <p style="font-size: 1.2rem; margin: 1rem 0;"><strong>Average value</strong></p>
+                <p><strong>Formula:</strong> μ = ΣX / N</p>
+                <p style="color: var(--success); margin-top: 1rem;"><strong>✓ Uses all data</strong></p>
+                <p style="color: var(--secondary);"><strong>✗ Sensitive to outliers</strong></p>
+                <p style="color: var(--primary); margin-top: 1rem;">Example: [10, 20, 30, 40, 50]<br><strong>Mean = 30</strong></p>
+            </div>
+            <div class="card">
+                <h3>📍 Median</h3>
+                <p style="font-size: 1.2rem; margin: 1rem 0;"><strong>Middle value</strong></p>
+                <p><strong>Formula:</strong> Sorted[N/2]</p>
+                <p style="color: var(--success); margin-top: 1rem;"><strong>✓ Robust to outliers</strong></p>
+                <p style="color: var(--secondary);"><strong>✗ Ignores some data</strong></p>
+                <p style="color: var(--primary); margin-top: 1rem;">Example: [10, 20, 30, 40, 50]<br><strong>Median = 30</strong></p>
+            </div>
+            <div class="card">
+                <h3>🎯 Mode</h3>
+                <p style="font-size: 1.2rem; margin: 1rem 0;"><strong>Most frequent value</strong></p>
+                <p><strong>Formula:</strong> argmax(count)</p>
+                <p style="color: var(--success); margin-top: 1rem;"><strong>✓ Works with categories</strong></p>
+                <p style="color: var(--secondary);"><strong>✗ May not be unique</strong></p>
+                <p style="color: var(--primary); margin-top: 1rem;">Example: [10, 20, 20, 30, 30, 30]<br><strong>Mode = 30</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: DISPERSION & DISTRIBUTION SHAPE -->
+    <section class="slide" data-slide="7/50">
+        <h2>📊 Spread & Shape: Variance, Skewness, Kurtosis</h2>
+        <div class="grid-2">
+            <div>
+                <h3>📏 Measures of Dispersion</h3>
+                <ul>
+                    <li><strong>Range:</strong> Max - Min (simple but crude)</li>
+                    <li><strong>Variance (σ²):</strong> Average squared deviation from mean</li>
+                    <li><strong>Std Dev (σ):</strong> √Variance (same units as data)</li>
+                    <li><strong>Coefficient of Variation (CV):</strong> σ/μ (compare across different scales)</li>
+                    <li><strong>Interquartile Range (IQR):</strong> Q3 - Q1 (robust measure)</li>
+                </ul>
+                <div class="formula">
+                    σ² = Σ(X - μ)² / N
+                </div>
+            </div>
+            <div>
+                <h3>🔄 Distribution Shape</h3>
+                <ul>
+                    <li><strong>Skewness (γ₁):</strong> Measures asymmetry
+                        <ul style="margin-top: 0.5rem;">
+                            <li>= 0: Symmetric</li>
+                            <li>&gt; 0: Right-skewed (long right tail)</li>
+                            <li>&lt; 0: Left-skewed (long left tail)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Kurtosis (γ₂):</strong> Measures tailedness
+                        <ul style="margin-top: 0.5rem;">
+                            <li>= 3: Normal distribution</li>
+                            <li>&gt; 3: Heavy tails (leptokurtic)</li>
+                            <li>&lt; 3: Light tails (platykurtic)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: CORRELATION & RELATIONSHIPS -->
+    <section class="slide" data-slide="8/50">
+        <h2>🔗 Understanding Variable Relationships</h2>
+        <div class="grid-2">
+            <div>
+                <h3>📊 Covariance</h3>
+                <p><strong>Definition:</strong> How two variables vary together</p>
+                <div class="formula">
+                    Cov(X,Y) = Σ(X - μₓ)(Y - μᵧ) / N
+                </div>
+                <ul>
+                    <li><strong>&gt; 0:</strong> Variables move together</li>
+                    <li><strong>&lt; 0:</strong> Variables move opposite</li>
+                    <li><strong>≈ 0:</strong> No linear relationship</li>
+                </ul>
+            </div>
+            <div>
+                <h3>📈 Correlation (r)</h3>
+                <p><strong>Definition:</strong> Standardized covariance [-1, +1]</p>
+                <div class="formula">
+                    r = Cov(X,Y) / (σₓ × σᵧ)
+                </div>
+                <ul>
+                    <li><strong>+1:</strong> Perfect positive correlation</li>
+                    <li><strong>0:</strong> No correlation</li>
+                    <li><strong>-1:</strong> Perfect negative correlation</li>
+                </ul>
+                <div class="highlight important">
+                    ⚠️ <strong>Important:</strong> Correlation ≠ Causation! Two variables can be correlated without one causing the other.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: PROBABILITY FUNDAMENTALS -->
+    <section class="slide" data-slide="9/50" id="distributions">
+        <h2>🎲 Probability Foundations</h2>
+        <div class="infographic">
+            <div class="grid-2">
+                <div>
+                    <h3>📐 Probability Rules</h3>
+                    <ul>
+                        <li><strong>0 ≤ P(A) ≤ 1</strong> (Always between 0 and 1)</li>
+                        <li><strong>P(not A) = 1 - P(A)</strong> (Complement rule)</li>
+                        <li><strong>P(A or B) = P(A) + P(B) - P(A and B)</strong></li>
+                        <li><strong>P(A and B) = P(A) × P(B|A)</strong> (Conditional)</li>
+                    </ul>
+                    <div class="highlight">
+                        <strong>Key Insight:</strong> Probability is the foundation of all statistical inference. All hypothesis tests produce p-values, which are probabilities.
+                    </div>
+                </div>
+                <div>
+                    <h3>🎯 Common Probability Misconceptions</h3>
+                    <ul>
+                        <li><strong>❌ Gambler's Fallacy:</strong> Past doesn't guarantee future outcomes</li>
+                        <li><strong>❌ Law of Averages:</strong> Can't "correct" random variation</li>
+                        <li><strong>❌ Base Rate Fallacy:</strong> Must consider prior probability</li>
+                        <li><strong>❌ Regression to Mean:</strong> Extreme values tend to become average</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: DISTRIBUTIONS OVERVIEW -->
+    <section class="slide" data-slide="10/50">
+        <h2>🔔 Probability Distributions Landscape</h2>
+        <img src="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/da9707958b745fbc974cf22b94680046/31e3c543-9e46-44df-be2a-3266de724ae6/2c5673b4.png" alt="Probability Distributions Comparison" style="width: 100%; margin: 2rem 0;">
+        <div class="grid-2">
+            <div class="card">
+                <h3>🎲 Discrete Distributions</h3>
+                <ul>
+                    <li><strong>Bernoulli:</strong> Single trial (Success/Failure)</li>
+                    <li><strong>Binomial:</strong> n independent trials</li>
+                    <li><strong>Poisson:</strong> Events in fixed interval</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🔔 Continuous Distributions</h3>
+                <ul>
+                    <li><strong>Normal:</strong> Bell curve (most common)</li>
+                    <li><strong>Exponential:</strong> Waiting times</li>
+                    <li><strong>Uniform:</strong> Equal probability</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: NORMAL DISTRIBUTION IN DEPTH -->
+    <section class="slide" data-slide="11/50">
+        <h2>🔔 Normal Distribution: Most Important!</h2>
+        <div class="grid-2">
+            <div>
+                <h3>📊 Key Properties</h3>
+                <ul>
+                    <li>Bell-shaped and symmetric</li>
+                    <li>Mean = Median = Mode</li>
+                    <li>Defined by μ (mean) and σ (std dev)</li>
+                    <li><strong>68-95-99.7 Rule:</strong>
+                        <ul>
+                            <li>68% data within ±1σ</li>
+                            <li>95% data within ±2σ</li>
+                            <li>99.7% data within ±3σ</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h3>🎯 Why It Matters for ML</h3>
+                <ul>
+                    <li><strong>Central Limit Theorem:</strong> Sample means are normally distributed!</li>
+                    <li>Foundation for confidence intervals</li>
+                    <li>Assumption in many ML algorithms</li>
+                    <li>Used in hypothesis testing</li>
+                    <li>Enables prediction intervals</li>
+                </ul>
+                <div class="highlight">
+                    Many ML algorithms (linear regression, logistic regression, neural networks) perform better when features are normally distributed.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: CENTRAL LIMIT THEOREM -->
+    <section class="slide" data-slide="12/50">
+        <h2>🎯 Central Limit Theorem: The Magic Theorem</h2>
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="text-align: center; color: var(--primary);">For ANY population distribution with finite mean & variance:</h3>
+            <p style="text-align: center; font-size: 1.3rem; margin: 1.5rem 0; font-weight: 600;">
+                The distribution of sample means ≈ Normal(μ, σ/√n)
+            </p>
+            <p style="text-align: center; color: var(--accent); font-size: 1.1rem;">
+                This holds true regardless of the original population's shape!
+            </p>
+        </div>
+        <div class="grid-2">
+            <div class="card success">
+                <h3>✨ Why This Changes Everything</h3>
+                <ul>
+                    <li>Justifies normal distribution assumption</li>
+                    <li>Enables hypothesis testing</li>
+                    <li>Allows confidence interval construction</li>
+                    <li>Sample size ≥ 30 usually sufficient</li>
+                    <li>Works for ANY population!</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>📈 Practical Implications</h3>
+                <ul>
+                    <li>Larger samples → better approximation</li>
+                    <li>Sample mean ≈ Population mean</li>
+                    <li>Standard error = σ/√n</li>
+                    <li>Precision improves with √n</li>
+                    <li>Foundation of ALL inference!</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 13: CONFIDENCE INTERVALS -->
+    <section class="slide" data-slide="13/50" id="inferential">
+        <h2>📏 Confidence Intervals: Range Estimation</h2>
+        <div class="infographic">
+            <h3 style="text-align: center; margin-bottom: 2rem;">What is a Confidence Interval?</h3>
+            <p style="text-align: center; font-size: 1.2rem; margin: 1.5rem 0;">
+                A range of plausible values for an unknown population parameter, calculated from sample data.
+            </p>
+            <div class="formula">
+                CI = x̄ ± z<sub>α/2</sub> × (σ/√n)
+            </div>
+            <p style="text-align: center; margin: 1.5rem 0;">For 95% confidence: z = 1.96 | For 99% confidence: z = 2.576</p>
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <h3>🔢 Example Calculation</h3>
+                <ul>
+                    <li>Sample mean: 102.5</li>
+                    <li>Std dev: 15</li>
+                    <li>Sample size: 100</li>
+                    <li>Standard error: 15/√100 = 1.5</li>
+                    <li>Margin of error: 1.96 × 1.5 = 2.94</li>
+                    <li><strong>95% CI: [99.56, 105.44]</strong></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>✅ Correct Interpretation</h3>
+                <ul>
+                    <li>We're 95% confident the true mean falls in this range</li>
+                    <li>If we repeated 100 times, ~95 intervals contain μ</li>
+                    <li>NOT "95% chance the parameter is in this range"</li>
+                    <li>Wider intervals = more uncertainty</li>
+                    <li>Narrower intervals = more precision</li>
+                </ul>
+            </div>
+            <div class="card error">
+                <h3>❌ Common Mistakes</h3>
+                <ul>
+                    <li>"95% of data falls here" (WRONG)</li>
+                    <li>"We're 95% sure the sample mean is in the interval" (WRONG)</li>
+                    <li>Treating CI as a prediction interval</li>
+                    <li>Assuming parameter is random</li>
+                    <li>Using without stating confidence level</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 14: HYPOTHESIS TESTING FRAMEWORK -->
+    <section class="slide" data-slide="14/50" id="testing">
+        <h2>🔬 Hypothesis Testing: The Complete Framework</h2>
+        <div class="process-flow">
+            <div class="process-step">1️⃣<br>State H₀ & H₁</div>
+            <span class="process-arrow">→</span>
+            <div class="process-step">2️⃣<br>Choose α</div>
+            <span class="process-arrow">→</span>
+            <div class="process-step">3️⃣<br>Test Statistic</div>
+            <span class="process-arrow">→</span>
+            <div class="process-step">4️⃣<br>P-value</div>
+            <span class="process-arrow">→</span>
+            <div class="process-step">5️⃣<br>Decision</div>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>📌 Key Concepts</h3>
+                <ul>
+                    <li><strong>H₀ (Null):</strong> Default assumption (no effect)</li>
+                    <li><strong>H₁ (Alternative):</strong> What we try to prove</li>
+                    <li><strong>α (Alpha):</strong> Significance level (typically 0.05)</li>
+                    <li><strong>p-value:</strong> Probability of data given H₀ is true</li>
+                    <li><strong>Decision:</strong> Reject H₀ if p-value &lt; α</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>⚠️ Type I & II Errors</h3>
+                <table style="margin-top: 1rem;">
+                    <tr>
+                        <td></td>
+                        <td style="color: var(--primary);"><strong>Reject H₀</strong></td>
+                        <td style="color: var(--primary);"><strong>Fail to Reject</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--primary);"><strong>H₀ True</strong></td>
+                        <td style="background: rgba(255,107,107,0.2);">Type I (α)</td>
+                        <td style="background: rgba(16,185,129,0.2);">Correct ✓</td>
+                    </tr>
+                    <tr>
+                        <td style="color: var(--primary);"><strong>H₁ True</strong></td>
+                        <td style="background: rgba(16,185,129,0.2);">Correct ✓</td>
+                        <td style="background: rgba(245,158,11,0.2);">Type II (β)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 15: STATISTICAL TESTS SELECTION -->
+    <section class="slide" data-slide="15/50">
+        <h2>⚖️ Choosing the Right Statistical Test</h2>
+        <div class="infographic">
+            <h3 style="text-align: center; margin-bottom: 2rem;">Decision Tree for Test Selection</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📊 Comparing Means</h3>
+                    <ul>
+                        <li><strong>1 Sample vs Population:</strong> Z-test (n&gt;30) or t-test (n&lt;30)</li>
+                        <li><strong>2 Independent Samples:</strong> Independent t-test</li>
+                        <li><strong>2 Paired Samples:</strong> Paired t-test</li>
+                        <li><strong>3+ Groups:</strong> ANOVA (Analysis of Variance)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>🏷️ Comparing Categories</h3>
+                    <ul>
+                        <li><strong>2 Categorical Variables:</strong> Chi-square test</li>
+                        <li><strong>Goodness of Fit:</strong> Chi-square test</li>
+                        <li><strong>Independence Test:</strong> Chi-square test</li>
+                        <li><strong>Multiple Categories:</strong> Fisher's exact test</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 16: Z-TEST VS T-TEST -->
+    <section class="slide" data-slide="16/50">
+        <h2>⚖️ Z-Test vs T-Test Comparison</h2>
+        <table style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="width: 20%;">Aspect</th>
+                    <th style="width: 40%;">Z-Test</th>
+                    <th style="width: 40%;">T-Test</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Population σ</strong></td>
+                    <td>Known</td>
+                    <td>Unknown (use sample s)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sample Size</strong></td>
+                    <td>n ≥ 30</td>
+                    <td>n &lt; 30</td>
+                </tr>
+                <tr>
+                    <td><strong>Distribution</strong></td>
+                    <td>Standard normal</td>
+                    <td>Student's t (fatter tails)</td>
+                </tr>
+                <tr>
+                    <td><strong>Critical Value</strong></td>
+                    <td>±1.96 (95% CI)</td>
+                    <td>±2.045-∞ (depends on df)</td>
+                </tr>
+                <tr>
+                    <td><strong>Formula</strong></td>
+                    <td>z = (x̄ - μ₀) / (σ/√n)</td>
+                    <td>t = (x̄ - μ₀) / (s/√n)</td>
+                </tr>
+                <tr>
+                    <td><strong>Use When</strong></td>
+                    <td>Large samples, σ known</td>
+                    <td>Small samples, typical ML</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="code-block">
+from scipy import stats
+
+# Z-Test
+z_stat = (sample_mean - pop_mean) / (pop_std / np.sqrt(n))
+p_value = 2 * (1 - stats.norm.cdf(abs(z_stat)))
+
+# T-Test (more common in practice)
+t_stat, p_value = stats.ttest_1samp(sample, popmean=pop_mean)
+        </div>
+    </section>
+
+    <!-- SLIDE 17: A/B TESTING CASE STUDY -->
+    <section class="slide" data-slide="17/50">
+        <h2>💼 Real-World: A/B Testing for Conversions</h2>
+        <div class="infographic" style="background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);">
+            <h3>📊 E-commerce Checkout Button Color Test</h3>
+            <div class="grid-3">
+                <div class="card success">
+                    <h4>🔴 Control (Red Button)</h4>
+                    <p><strong>Conversions:</strong> 42 / 1000</p>
+                    <p><strong>CR:</strong> 4.2%</p>
+                </div>
+                <div class="card success">
+                    <h4>🟢 Treatment (Green Button)</h4>
+                    <p><strong>Conversions:</strong> 51 / 1000</p>
+                    <p><strong>CR:</strong> 5.1%</p>
+                </div>
+                <div class="card">
+                    <h4>📈 Results</h4>
+                    <p><strong>Uplift:</strong> +21.4%</p>
+                    <p><strong>Abs Diff:</strong> +0.9 pp</p>
+                </div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <h3>🔬 Statistical Test (Chi-Square)</h3>
+                <ul>
+                    <li>H₀: Conversion rates are equal</li>
+                    <li>H₁: Conversion rates differ</li>
+                    <li>χ² statistic: 2.834</li>
+                    <li>p-value: 0.092</li>
+                    <li>Result: NOT significant at α=0.05</li>
+                </ul>
+                <div class="highlight important">
+                    ⚠️ The 0.9pp uplift, while practical, isn't statistically significant. Need larger sample!
+                </div>
+            </div>
+            <div class="card">
+                <h3>💡 Key Lessons</h3>
+                <ul>
+                    <li>Practical significance ≠ Statistical significance</li>
+                    <li>Report effect size, not just p-value</li>
+                    <li>Sample size calculation before experiment</li>
+                    <li>Consider business impact & cost</li>
+                    <li>Document assumptions & limitations</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 18: STATISTICAL PITFALLS -->
+    <section class="slide" data-slide="18/50">
+        <h2>⚠️ Common Statistical Traps to Avoid</h2>
+        <div class="grid-2">
+            <div class="card error">
+                <h3>🚨 P-Hacking</h3>
+                <p><strong>What:</strong> Testing multiple hypotheses until finding significance</p>
+                <p><strong>Problem:</strong> α = 1 - (1-0.05)^k with k tests</p>
+                <p><strong>Solution:</strong> Pre-register hypotheses before analysis</p>
+            </div>
+            <div class="card error">
+                <h3>⛓️ Correlation ≠ Causation</h3>
+                <p><strong>What:</strong> Assuming X→Y because r = 0.9</p>
+                <p><strong>Problem:</strong> Could have confounding variables</p>
+                <p><strong>Solution:</strong> Design controlled experiments</p>
+            </div>
+            <div class="card error">
+                <h3>📊 Multiple Comparisons</h3>
+                <p><strong>What:</strong> Running many tests without adjustment</p>
+                <p><strong>Problem:</strong> Family-wise error rate inflates</p>
+                <p><strong>Solution:</strong> Bonferroni correction, FDR</p>
+            </div>
+            <div class="card error">
+                <h3>📈 Ignoring Effect Size</h3>
+                <p><strong>What:</strong> Reporting p &lt; 0.05 as "success"</p>
+                <p><strong>Problem:</strong> Statistically significant ≠ Practically important</p>
+                <p><strong>Solution:</strong> Always report Cohen's d, r-squared</p>
+            </div>
+            <div class="card error">
+                <h3>🎲 Low Statistical Power</h3>
+                <p><strong>What:</strong> Using β = 0.20 (80% power)</p>
+                <p><strong>Problem:</strong> High chance of Type II error</p>
+                <p><strong>Solution:</strong> Power analysis before experiment</p>
+            </div>
+            <div class="card error">
+                <h3>📉 Data Dredging</h3>
+                <p><strong>What:</strong> Exploring data after seeing patterns</p>
+                <p><strong>Problem:</strong> Leads to false discoveries</p>
+                <p><strong>Solution:</strong> Separate exploratory & confirmatory</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 19: BEST PRACTICES -->
+    <section class="slide" data-slide="19/50">
+        <h2>✅ Statistical Analysis Best Practices</h2>
+        <div class="grid-2">
+            <div class="card success">
+                <h3>✓ DO THIS</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>✅ Pre-register hypotheses</li>
+                    <li>✅ Calculate sample size (power analysis)</li>
+                    <li>✅ Check test assumptions</li>
+                    <li>✅ Report effect sizes</li>
+                    <li>✅ Visualize distributions</li>
+                    <li>✅ Document methods</li>
+                    <li>✅ Consider confidence intervals</li>
+                    <li>✅ Replicate findings</li>
+                </ul>
+            </div>
+            <div class="card error">
+                <h3>❌ DON'T DO THIS</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>❌ P-hack for significance</li>
+                    <li>❌ Stop at p &lt; 0.05</li>
+                    <li>❌ Ignore outliers silently</li>
+                    <li>❌ Report only p-values</li>
+                    <li>❌ Assume normality blindly</li>
+                    <li>❌ Skip exploratory analysis</li>
+                    <li>❌ Compare too many groups</li>
+                    <li>❌ Confuse correlation & causation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 20: CAREER IMPACT -->
+    <section class="slide" data-slide="20/50">
+        <h2>💰 Career Impact: Why Companies Pay Premium</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>🎯 Interview Questions You'll Face</h3>
+                <ul>
+                    <li><strong>Google:</strong> "Explain p-values to a product manager"</li>
+                    <li><strong>Amazon:</strong> "Design an A/B test for recommendation system"</li>
+                    <li><strong>Meta:</strong> "How do you validate model performance?"</li>
+                    <li><strong>Microsoft:</strong> "Difference between t-test and z-test?"</li>
+                    <li><strong>Apple:</strong> "Sample size calculation for experiment"</li>
+                </ul>
+            </div>
+            <div class="chart-container">
+                <h3 style="text-align: center; margin-bottom: 1.5rem;">💵 Salary Premium by Skills</h3>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 60%;"><strong>Basic ML Engineer</strong></td>
+                        <td style="text-align: right; color: var(--primary); font-weight: 600; font-size: 1.1rem;">₹15 LPA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>+ Statistics Skills</strong></td>
+                        <td style="text-align: right; color: var(--accent); font-weight: 600; font-size: 1.1rem;">₹23 LPA</td>
+                    </tr>
+                    <tr>
+                        <td><strong>+ Advanced Stats</strong></td>
+                        <td style="text-align: right; color: var(--success); font-weight: 600; font-size: 1.1rem;">₹28+ LPA</td>
+                    </tr>
+                </table>
+                <p style="margin-top: 1rem; color: var(--accent); text-align: center;">
+                    <strong>+₹8-13 LPA premium for statistical proficiency!</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 21: KEY TAKEAWAYS -->
+    <section class="slide" data-slide="21/50">
+        <h2>📌 Key Takeaways for Your Career</h2>
+        <div class="grid-2">
+            <div class="card success">
+                <h3 style="text-align: center; margin-bottom: 2rem;">🎓 Core Competencies</h3>
+                <ol style="font-size: 1.1rem;">
+                    <li><strong>Data characterization:</strong> Know your data type</li>
+                    <li><strong>Sampling:</strong> Represent population correctly</li>
+                    <li><strong>Distributions:</strong> Understand probability models</li>
+                    <li><strong>Hypothesis testing:</strong> Validate claims rigorously</li>
+                    <li><strong>A/B testing:</strong> Run valid experiments</li>
+                    <li><strong>Effect sizes:</strong> Report practical significance</li>
+                </ol>
+            </div>
+            <div class="card">
+                <h3 style="text-align: center; margin-bottom: 2rem;">🚀 Next Steps</h3>
+                <ul style="font-size: 1.1rem;">
+                    <li>✅ Practice with real Kaggle datasets</li>
+                    <li>✅ Implement tests in Python (scipy)</li>
+                    <li>✅ Design A/B tests for projects</li>
+                    <li>✅ Study power analysis thoroughly</li>
+                    <li>✅ Read academic papers on testing</li>
+                    <li>✅ Apply to production problems</li>
+                </ul>
+            </div>
+        </div>
+        <div class="highlight" style="margin-top: 2rem;">
+            <strong>🎯 Final Message:</strong> Statistics is not about memorizing formulas—it's about thinking clearly about uncertainty. Companies hire people who can design valid experiments and communicate findings confidently. Master these skills and you'll stand out.
+        </div>
+    </section>
+
+    <!-- SLIDE 22: RESOURCES & LEARNING PATHS -->
+    <section class="slide" data-slide="22/50">
+        <h2>📚 Recommended Learning Resources</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>📖 Books</h3>
+                <ul>
+                    <li><strong>Statistics Rethinking</strong> - Richard McElreath</li>
+                    <li><strong>All of Statistics</strong> - Wasserman</li>
+                    <li><strong>The Book of Why</strong> - Judea Pearl</li>
+                    <li><strong>Statistical Rethinking</strong> - Bayesian approach</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎥 Online Courses</h3>
+                <ul>
+                    <li><strong>StatQuest</strong> (YouTube) - Josh Starmer</li>
+                    <li><strong>Coursera Statistics</strong> - Specialization</li>
+                    <li><strong>edX Statistics</strong> - Berkeley course</li>
+                    <li><strong>Khan Academy</strong> - Fundamentals</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>💻 Python Libraries</h3>
+                <ul>
+                    <li><strong>scipy.stats</strong> - Statistical functions</li>
+                    <li><strong>statsmodels</strong> - Advanced modeling</li>
+                    <li><strong>numpy</strong> - Numerical computations</li>
+                    <li><strong>pandas</strong> - Data manipulation</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>🎯 Practice Platforms</h3>
+                <ul>
+                    <li><strong>Kaggle</strong> - Real datasets & competitions</li>
+                    <li><strong>LeetCode</strong> - Statistics problems</li>
+                    <li><strong>GitHub</strong> - Open projects to learn from</li>
+                    <li><strong>arXiv</strong> - Recent research papers</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 23: CONCLUSION -->
+    <section class="slide" data-slide="23/50">
+        <div class="text-center">
+            <h1 style="font-size: 3rem; margin-bottom: 2rem;">🎉 Statistics Mastery Achieved!</h1>
+            <div class="grid-3" style="margin: 3rem 0;">
+                <div class="card success">
+                    <p style="font-size: 2rem; font-weight: 700; color: var(--success);">23</p>
+                    <p style="font-size: 1.2rem;">Complete Slides</p>
+                </div>
+                <div class="card success">
+                    <p style="font-size: 2rem; font-weight: 700; color: var(--success);">50+</p>
+                    <p style="font-size: 1.2rem;">Key Concepts</p>
+                </div>
+                <div class="card success">
+                    <p style="font-size: 2rem; font-weight: 700; color: var(--success);">100%</p>
+                    <p style="font-size: 1.2rem;">Job Ready</p>
+                </div>
+            </div>
+            <div class="highlight" style="max-width: 800px; margin: 2rem auto;">
+                <strong style="font-size: 1.3rem;">You now have the statistical foundation to:</strong>
+                <ul style="text-align: left; margin-top: 1rem;">
+                    <li>✅ Design and validate A/B tests</li>
+                    <li>✅ Understand hypothesis testing</li>
+                    <li>✅ Build confidence intervals</li>
+                    <li>✅ Choose appropriate statistical tests</li>
+                    <li>✅ Communicate findings to stakeholders</li>
+                    <li>✅ Ace FAANG interviews</li>
+                </ul>
+            </div>
+            <p style="font-size: 1.4rem; color: var(--primary); margin-top: 3rem; font-weight: 700;">
+                Ready to master AI/ML? Statistics is your foundation. 🚀
+            </p>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Progress bar tracking
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (scrollTop / docHeight) * 100;
+        document.getElementById('progressFill').style.width = scrolled + '%';
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Add click animation to cards
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 100);
+        });
+    });
+</script>
+
+</body>
+</html>

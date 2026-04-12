@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=960, initial-scale=1.0">
+  <title>Python Fundamentals for AI/ML Careers</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+    
+    .slide { 
+      width: 960px; 
+      height: 540px; 
+      margin: 20px auto; 
+      display: flex; 
+      flex-direction: column;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      page-break-after: always;
+    }
+    
+    .slide-header { 
+      background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); 
+      color: white; 
+      padding: 20px 30px;
+      border-bottom: 3px solid #10b981;
+    }
+    
+    .slide-header h1 { font-size: 2.2rem; margin-bottom: 5px; font-weight: 700; }
+    .slide-header p { font-size: 1rem; opacity: 0.95; }
+    
+    .slide-content { 
+      flex: 1; 
+      padding: 30px; 
+      overflow: auto;
+      font-size: 0.95rem;
+    }
+    
+    .slide-content h2 { color: #3b82f6; margin-bottom: 15px; font-size: 1.8rem; font-weight: 700; }
+    .slide-content h3 { color: #1e40af; margin-top: 12px; margin-bottom: 10px; font-size: 1.2rem; }
+    .slide-content p { line-height: 1.6; margin-bottom: 10px; color: #333; }
+    .slide-content ul { margin-left: 20px; }
+    .slide-content li { margin-bottom: 6px; line-height: 1.5; }
+    
+    .image-container { text-align: center; margin: 15px 0; }
+    .image-container img { max-width: 100%; max-height: 280px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .image-label { font-size: 0.85rem; color: #666; margin-top: 6px; font-style: italic; }
+    
+    .infographic { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 15px 0; }
+    .infographic.three { grid-template-columns: 1fr 1fr 1fr; }
+    
+    .card { background: #f9fafb; border-left: 4px solid #3b82f6; padding: 12px; border-radius: 4px; font-size: 0.9rem; }
+    .card h4 { color: #3b82f6; margin-bottom: 6px; font-weight: 600; }
+    .card ul { margin-left: 15px; }
+    .card li { margin-bottom: 4px; font-size: 0.85rem; }
+    
+    .code-box { background: #1e293b; color: #e2e8f0; padding: 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 0.8rem; overflow-x: auto; margin: 10px 0; }
+    
+    .success { background: #ecfdf5; padding: 12px; border-left: 4px solid #10b981; border-radius: 4px; margin: 10px 0; }
+    .warning { background: #fef2f2; padding: 12px; border-left: 4px solid #ef4444; border-radius: 4px; margin: 10px 0; }
+    .info { background: #f0f9ff; padding: 12px; border-left: 4px solid #3b82f6; border-radius: 4px; margin: 10px 0; }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    
+    .title-slide { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #0f172a 100%); color: white; }
+    .title-slide-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; flex: 1; padding: 40px; }
+    .title-slide h1 { font-size: 3.2rem; margin-bottom: 15px; font-weight: 700; }
+    .title-slide p { font-size: 1.2rem; margin: 10px 0; opacity: 0.95; }
+    
+    .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 2px; font-weight: 500; }
+    .data-table { width: 100%; font-size: 0.75rem; border-collapse: collapse; margin: 10px 0; }
+    .data-table th { background: #3b82f6; color: white; padding: 6px; text-align: left; }
+    .data-table td { padding: 5px; border-bottom: 1px solid #e5e7eb; }
+    .data-table tr:nth-child(even) { background: #f9fafb; }
+  </style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide title-slide">
+  <div class="title-slide-content">
+    <h1>🐍 Python Fundamentals Masterclass</h1>
+    <p style="font-size: 1.3rem; color: #fbbf24;">Module 0: Your Foundation for AI & ML Careers</p>
+    <p style="font-size: 1.1rem; margin-top: 20px;">Complete guide to Python essentials, libraries, and development environment</p>
+    <p style="font-size: 0.95rem; margin-top: 30px; opacity: 0.9;">AI Career Bootcamp for Final Year Graduates | November 2025</p>
+  </div>
+</div>
+
+<!-- Slide 2: Why Python for AI/ML -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 Why Python for AI/ML Careers?</h1>
+    <p>Python dominates the AI and machine learning industry</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">Industry Facts</h4>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>87%</strong> of data science jobs require Python</li>
+          <li><strong>#1</strong> language for ML projects globally</li>
+          <li><strong>10M+</strong> developers use Python</li>
+          <li><strong>$100K+</strong> average Python ML engineer salary</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Key Advantages</h4>
+        <ul style="font-size: 0.85rem;">
+          <li>✓ Simple, readable syntax</li>
+          <li>✓ Rapid prototyping</li>
+          <li>✓ Powerful ML libraries</li>
+          <li>✓ Large community support</li>
+          <li>✓ Cross-platform compatible</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info" style="margin-top: 15px;">
+      <strong>Career Path:</strong> Master Python → Build ML projects → Land top AI roles at FAANG companies
+    </div>
+  </div>
+</div>
+
+<!-- Slide 3: Python Ecosystem -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🛠️ Python Ecosystem for Data Science</h1>
+    <p>The complete toolkit for machine learning workflows</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>Essential Libraries</h3>
+        <table class="data-table">
+          <tr style="background: #3b82f6; color: white;">
+            <th>Task</th>
+            <th>Library</th>
+          </tr>
+          <tr><td>Data Manipulation</td><td><strong>Pandas</strong></td></tr>
+          <tr style="background: #f9fafb;"><td>Numerical Computing</td><td><strong>NumPy</strong></td></tr>
+          <tr><td>Visualization</td><td><strong>Matplotlib</strong></td></tr>
+          <tr style="background: #f9fafb;"><td>ML Algorithms</td><td><strong>Scikit-learn</strong></td></tr>
+          <tr><td>Deep Learning</td><td><strong>TensorFlow/PyTorch</strong></td></tr>
+          <tr style="background: #f9fafb;"><td>Statistical Analysis</td><td><strong>SciPy</strong></td></tr>
+        </table>
+      </div>
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763536740/search_images/2c366bb846366067339ac28f3e3040072daa4824.jpg" alt="Python Ecosystem">
+        <div class="image-label">Python: The leading language for AI/ML</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 4: Data Science Workflow -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔄 Data Science Workflow in Python</h1>
+    <p>Complete pipeline from data to deployment</p>
+  </div>
+  <div class="slide-content">
+    <div class="image-container">
+      <img src="https://pplx-res.cloudinary.com/image/upload/v1764249037/search_images/99167d8310446853bb6b5a90ba4549daa20ec6e3.jpg" alt="Data Science Pipeline">
+      <div class="image-label">End-to-end data science workflow</div>
+    </div>
+    <div class="grid-3" style="margin-top: 15px;">
+      <div class="card">
+        <h4>🔍 Acquire & Explore</h4>
+        <p style="font-size: 0.8rem;">Web scraping, APIs, data cleaning</p>
+      </div>
+      <div class="card">
+        <h4>📊 Analyze & Build</h4>
+        <p style="font-size: 0.8rem;">EDA, feature engineering, model training</p>
+      </div>
+      <div class="card">
+        <h4>🚀 Deploy & Monitor</h4>
+        <p style="font-size: 0.8rem;">Production deployment, performance tracking</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5: Anaconda Installation -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📦 Anaconda: Python for Data Science</h1>
+    <p>The recommended distribution for ML professionals</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>Why Anaconda?</h3>
+        <ul style="font-size: 0.9rem;">
+          <li>✓ 1500+ pre-installed packages</li>
+          <li>✓ Conda package manager included</li>
+          <li>✓ Environment isolation built-in</li>
+          <li>✓ Anaconda Navigator GUI</li>
+          <li>✓ Cross-platform (Windows/Mac/Linux)</li>
+        </ul>
+        <div class="info" style="margin-top: 12px; font-size: 0.85rem;">
+          <strong>Install:</strong> Visit anaconda.com/download
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763531753/search_images/5712a3eee4f0923c9e64041b1bb8a1bb377ba807.jpg" alt="Anaconda Navigator">
+        <div class="image-label">Anaconda Navigator GUI interface</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 6: Environment Management -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔐 Conda Environment Management</h1>
+    <p>Isolate projects with specific package versions</p>
+  </div>
+  <div class="slide-content">
+    <h3>Essential Conda Commands</h3>
+    <div class="grid-2">
+      <div class="code-box">
+# Create environment
+conda create -n ml_project python=3.11
+
+# Activate environment
+conda activate ml_project
+
+# Install packages
+conda install numpy pandas scikit-learn
+
+# List environments
+conda env list
+      </div>
+      <div class="card">
+        <h4>Why Environments?</h4>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>Isolation:</strong> Each project has own packages</li>
+          <li><strong>Reproducibility:</strong> Same versions across machines</li>
+          <li><strong>Compatibility:</strong> Avoid package conflicts</li>
+          <li><strong>Production:</strong> Export environment for deployment</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warning" style="font-size: 0.85rem;">
+      <strong>Best Practice:</strong> Create new environment for each project
+    </div>
+  </div>
+</div>
+
+<!-- Slide 7: Jupyter Notebook Introduction -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📓 Jupyter Notebook: Interactive Development</h1>
+    <p>The preferred IDE for machine learning and data science</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>Why Jupyter?</h3>
+        <ul style="font-size: 0.9rem;">
+          <li>✓ Execute code interactively</li>
+          <li>✓ Mix code, text, equations</li>
+          <li>✓ Inline visualizations</li>
+          <li>✓ Perfect for learning & exploration</li>
+          <li>✓ Shareable notebooks</li>
+        </ul>
+        <div class="code-box" style="font-size: 0.8rem; margin-top: 10px;">
+# Launch Jupyter
+jupyter notebook
+# or via Anaconda Navigator
+        </div>
+      </div>
+      <div class="image-container">
+        <img src="https://pplx-res.cloudinary.com/image/upload/v1763117612/search_images/fd837eee3e81c8a18258dbbcc24957bb2ab3365d.jpg" alt="Jupyter Notebook">
+        <div class="image-label">Code cells, markdown cells, visualizations</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 8: Jupyter Shortcuts -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>⌨️ Essential Jupyter Shortcuts</h1>
+    <p>Boost your productivity with keyboard shortcuts</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>Execution Shortcuts</h3>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>Shift + Enter:</strong> Run cell & move next</li>
+          <li><strong>Ctrl + Enter:</strong> Run cell in place</li>
+          <li><strong>Alt + Enter:</strong> Run & insert new cell</li>
+          <li><strong>Tab:</strong> Code completion</li>
+          <li><strong>Shift + Tab:</strong> Function docstring</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Cell Management</h3>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>A:</strong> Insert cell above</li>
+          <li><strong>B:</strong> Insert cell below</li>
+          <li><strong>D + D:</strong> Delete cell</li>
+          <li><strong>M:</strong> Convert to Markdown</li>
+          <li><strong>Y:</strong> Convert to Code</li>
+        </ul>
+      </div>
+    </div>
+    <div class="success" style="margin-top: 15px; font-size: 0.85rem;">
+      <strong>Magic Commands:</strong> %matplotlib inline | %timeit | %whos | !pip install
+    </div>
+  </div>
+</div>
+
+<!-- Slide 9: Python Syntax Fundamentals -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>💻 Python Syntax Fundamentals</h1>
+    <p>The foundation of Python programming</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>Key Syntax Rules</h3>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>Indentation:</strong> 4 spaces for blocks</li>
+          <li><strong>Comments:</strong> Use # for comments</li>
+          <li><strong>Case-sensitive:</strong> name ≠ Name</li>
+          <li><strong>Line continuation:</strong> Use backslash or ()</li>
+        </ul>
+      </div>
+      <div class="code-box">
+# Correct indentation
+if x > 5:
+    print("x is > 5")  # Indented
+    print("Inside if")  # Same level
+
+# Comments
+# This is a comment
+"""Multi-line 
+comment here"""
+      </div>
+    </div>
+    <div class="info" style="margin-top: 10px; font-size: 0.85rem;">
+      <strong>Zen of Python:</strong> "Readability counts" → Write clean, understandable code
+    </div>
+  </div>
+</div>
+
+<!-- Slide 10: Operators -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔢 Python Operators</h1>
+    <p>Arithmetic, comparison, logical, and more</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>Arithmetic</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>+ Addition</li>
+          <li>- Subtraction</li>
+          <li>* Multiplication</li>
+          <li>/ Division</li>
+          <li>// Floor division</li>
+          <li>% Modulus</li>
+          <li>** Power</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Comparison</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>== Equal to</li>
+          <li>!= Not equal</li>
+          <li>< Less than</li>
+          <li>> Greater than</li>
+          <li><= Less/equal</li>
+          <li>>= Greater/equal</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Logical & Assignment</h4>
+        <ul style="font-size: 0.8rem;">
+          <li><strong>and</strong> both true</li>
+          <li><strong>or</strong> either true</li>
+          <li><strong>not</strong> negation</li>
+          <li><strong>=</strong> assign</li>
+          <li><strong>+=, -=, *=</strong> compound</li>
+          <li><strong>in</strong> membership</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 11: Data Types -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📝 Python Data Types</h1>
+    <p>Understanding built-in types and type conversion</p>
+  </div>
+  <div class="slide-content">
+    <table class="data-table">
+      <tr style="background: #3b82f6; color: white;">
+        <th>Type</th>
+        <th>Description</th>
+        <th>Example</th>
+        <th>Mutable?</th>
+      </tr>
+      <tr>
+        <td><strong>int</strong></td>
+        <td>Integer numbers</td>
+        <td>42, -10, 0</td>
+        <td>No</td>
+      </tr>
+      <tr style="background: #f9fafb;">
+        <td><strong>float</strong></td>
+        <td>Decimal numbers</td>
+        <td>3.14, -0.5</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>str</strong></td>
+        <td>Text strings</td>
+        <td>"Hello"</td>
+        <td>No</td>
+      </tr>
+      <tr style="background: #f9fafb;">
+        <td><strong>bool</strong></td>
+        <td>True/False</td>
+        <td>True, False</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td><strong>list</strong></td>
+        <td>Ordered, mutable</td>
+        <td>[1, 2, 3]</td>
+        <td>Yes</td>
+      </tr>
+      <tr style="background: #f9fafb;">
+        <td><strong>dict</strong></td>
+        <td>Key-value pairs</td>
+        <td>{'a': 1}</td>
+        <td>Yes</td>
+      </tr>
+    </table>
+    <div class="code-box" style="margin-top: 10px;">
+# Type conversion
+age = int("25")
+price = float("3.14")
+text = str(100)
+flag = bool(1)  # True
+    </div>
+  </div>
+</div>
+
+<!-- Slide 12: Strings Deep Dive -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔤 Strings: Text Processing</h1>
+    <p>Indexing, slicing, and string methods</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+# String indexing
+text = "Python"
+text[0]     # 'P'
+text[-1]    # 'n'
+
+# Slicing
+text[0:3]   # 'Pyt'
+text[::2]   # 'Pto' (every 2nd)
+text[::-1]  # 'nohtyP' (reversed)
+      </div>
+      <div>
+        <h3>String Methods</h3>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>.upper():</strong> UPPERCASE</li>
+          <li><strong>.lower():</strong> lowercase</li>
+          <li><strong>.strip():</strong> Remove spaces</li>
+          <li><strong>.split():</strong> Split by delimiter</li>
+          <li><strong>.join():</strong> Combine list</li>
+          <li><strong>.replace():</strong> Replace text</li>
+          <li><strong>.find():</strong> Search substring</li>
+          <li><strong>.format():</strong> Format strings</li>
+        </ul>
+      </div>
+    </div>
+    <div class="code-box" style="margin-top: 10px;">
+# f-strings (modern Python)
+name = "Alice"
+age = 25
+print(f"My name is {name}, age {age}")  # My name is Alice, age 25
+    </div>
+  </div>
+</div>
+
+<!-- Slide 13: Lists - Most Versatile -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📋 Lists: Ordered, Mutable Collections</h1>
+    <p>The most used data structure in Python</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+# Creating lists
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# Accessing & slicing
+numbers[0]      # 1
+numbers[-1]     # 5
+numbers[1:4]    # [2, 3, 4]
+
+# Modifying
+numbers.append(6)
+numbers.insert(0, 0)
+numbers.remove(3)
+numbers.pop()
+      </div>
+      <div class="card">
+        <h4>List Comprehension</h4>
+        <p style="font-size: 0.85rem; margin-bottom: 6px;"><strong>Traditional:</strong></p>
+        <div class="code-box" style="font-size: 0.7rem;">
+squares = []
+for x in range(5):
+    squares.append(x**2)
+        </div>
+        <p style="font-size: 0.85rem; margin: 8px 0;"><strong>Pythonic:</strong></p>
+        <div class="code-box" style="font-size: 0.7rem;">
+squares = [x**2 for x in range(5)]
+# [0, 1, 4, 9, 16]
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 14: Data Structures Comparison -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📊 Collections Comparison</h1>
+    <p>Lists, Tuples, Sets, and Dictionaries</p>
+  </div>
+  <div class="slide-content">
+    <div class="image-container">
+      <img src="https://pplx-res.cloudinary.com/image/upload/v1764005735/search_images/1464d54765f6852f78dc70faac8c7fe0537ff7ca.jpg" alt="Data Structures">
+      <div class="image-label">Visual comparison of Python data structures</div>
+    </div>
+    <div class="grid-2" style="margin-top: 10px; font-size: 0.8rem;">
+      <div><strong>List:</strong> Ordered, mutable, duplicates allowed. Use for data sequences.</div>
+      <div><strong>Tuple:</strong> Ordered, immutable, faster. Use for constants & dictionary keys.</div>
+      <div><strong>Set:</strong> Unordered, unique elements. Use for membership testing.</div>
+      <div><strong>Dict:</strong> Key-value pairs, mutable. Use for fast lookups.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 15: Tuples -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔒 Tuples: Immutable Sequences</h1>
+    <p>Ordered collections that cannot be modified</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="code-box">
+# Creating tuples
+empty = ()
+single = (1,)  # Note comma!
+coordinates = (10, 20)
+mixed = (1, "hello", 3.14)
+
+# Accessing (like lists)
+coordinates[0]      # 10
+coordinates[-1]     # 20
+
+# Tuple unpacking
+x, y = coordinates  # x=10, y=20
+
+# Fixed size - cannot modify!
+# coordinates[0] = 5  # ERROR!
+      </div>
+      <div class="card">
+        <h4>When to Use Tuples</h4>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>Dictionary keys:</strong> Lists can't be keys</li>
+          <li><strong>Return multiple:</strong> Functions return multiple values</li>
+          <li><strong>Constants:</strong> Immutable data</li>
+          <li><strong>Performance:</strong> Faster than lists</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 16: Sets - Unique Elements -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🎯 Sets: Unordered, Unique Collections</h1>
+    <p>Fast membership testing and duplicate removal</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box" style="margin-bottom: 12px;">
+# Creating sets
+numbers = {1, 2, 3, 4, 5}
+duplicates = {1, 1, 2, 2, 3}  # {1, 2, 3} - duplicates removed!
+
+# Set operations
+A = {1, 2, 3, 4}
+B = {3, 4, 5, 6}
+print(A | B)  # {1, 2, 3, 4, 5, 6} - Union
+print(A & B)  # {3, 4} - Intersection
+print(A - B)  # {1, 2} - Difference
+    </div>
+    <div class="grid-2" style="font-size: 0.85rem;">
+      <div class="card">
+        <h4>Set Methods</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>.add(item)</li>
+          <li>.remove(item)</li>
+          <li>.union(other)</li>
+          <li>.intersection(other)</li>
+          <li>.difference(other)</li>
+        </ul>
+      </div>
+      <div class="success">
+        <h4 style="color: #10b981;">Best Uses</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>Remove duplicates from list</li>
+          <li>Fast membership testing</li>
+          <li>Mathematical operations (union, intersection)</li>
+          <li>Finding unique elements</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 17: Dictionaries - Key-Value Power -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🗝️ Dictionaries: Key-Value Pairs</h1>
+    <p>The most useful data structure for ML projects</p>
+  </div>
+  <div class="slide-content">
+    <div class="code-box">
+# Creating dictionaries
+student = {"name": "Alice", "age": 25, "gpa": 3.85}
+empty = {}
+
+# Accessing values
+student["name"]             # "Alice"
+student.get("age")          # 25
+student.get("city", "NYC")  # Default value if missing
+
+# Modifying
+student["age"] = 26         # Update
+student["major"] = "CS"     # Add new key
+del student["gpa"]          # Delete key
+    </div>
+    <div class="grid-2" style="font-size: 0.85rem;">
+      <div class="card">
+        <h4>Dictionary Methods</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>.keys() - All keys</li>
+          <li>.values() - All values</li>
+          <li>.items() - Key-value pairs</li>
+          <li>.update() - Merge dicts</li>
+        </ul>
+      </div>
+      <div class="code-box" style="font-size: 0.75rem;">
+# Iteration
+for key, value in student.items():
+    print(f"{key}: {value}")
+
+# Dict comprehension
+squares = {x: x**2 for x in range(5)}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 18: Advanced: List & Dict Comprehensions -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>✨ Comprehensions: Pythonic Way</h1>
+    <p>Write concise, readable code with comprehensions</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>List Comprehensions</h3>
+        <div class="code-box">
+# Basic
+squares = [x**2 for x in range(5)]
+# [0, 1, 4, 9, 16]
+
+# With condition
+evens = [x for x in range(10) 
+         if x % 2 == 0]
+# [0, 2, 4, 6, 8]
+
+# Nested
+matrix = [[i+j for j in range(3)] 
+          for i in range(3)]
+# [[0,1,2],[1,2,3],[2,3,4]]
+        </div>
+      </div>
+      <div>
+        <h3>Dictionary Comprehensions</h3>
+        <div class="code-box">
+# Basic
+squares = {x: x**2 for x in range(5)}
+# {0:0, 1:1, 2:4, 3:9, 4:16}
+
+# With condition
+even_squares = {x: x**2 
+    for x in range(10) if x % 2 == 0}
+# {0:0, 2:4, 4:16, 6:36, 8:64}
+
+# From lists
+keys = ['a', 'b', 'c']
+values = [1, 2, 3]
+d = {k:v for k,v in zip(keys, values)}
+        </div>
+      </div>
+    </div>
+    <div class="success" style="font-size: 0.85rem;">
+      <strong>Best Practice:</strong> Use comprehensions for cleaner, faster Python code
+    </div>
+  </div>
+</div>
+
+<!-- Slide 19: Built-in Functions -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🔧 Essential Built-in Functions</h1>
+    <p>Functions you'll use constantly in data science</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>Collection Functions</h4>
+        <ul style="font-size: 0.8rem;">
+          <li><strong>len()</strong> - Length</li>
+          <li><strong>sorted()</strong> - Sort</li>
+          <li><strong>reversed()</strong> - Reverse</li>
+          <li><strong>sum()</strong> - Total</li>
+          <li><strong>max()</strong> - Maximum</li>
+          <li><strong>min()</strong> - Minimum</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Type & Check</h4>
+        <ul style="font-size: 0.8rem;">
+          <li><strong>type()</strong> - Check type</li>
+          <li><strong>isinstance()</strong> - Type check</li>
+          <li><strong>int(), str()</strong> - Convert</li>
+          <li><strong>bool()</strong> - Boolean</li>
+          <li><strong>any()</strong> - Any True?</li>
+          <li><strong>all()</strong> - All True?</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Iteration</h4>
+        <ul style="font-size: 0.8rem;">
+          <li><strong>range()</strong> - Number sequence</li>
+          <li><strong>enumerate()</strong> - With index</li>
+          <li><strong>zip()</strong> - Combine lists</li>
+          <li><strong>map()</strong> - Apply function</li>
+          <li><strong>filter()</strong> - Filter items</li>
+          <li><strong>for/while</strong> - Loops</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 20: Print & Input -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📤 Input/Output: Interaction</h1>
+    <p>Getting data from users and displaying output</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div>
+        <h3>print() Function</h3>
+        <div class="code-box">
+# Basic printing
+print("Hello, World!")
+
+# Multiple values
+print("Name:", name, "Age:", age)
+
+# f-strings (modern)
+print(f"I am {name}, age {age}")
+
+# Formatting
+price = 19.99
+print(f"Price: ${price:.2f}")
+
+# Multiple lines
+print("Line 1")
+print("Line 2")
+        </div>
+      </div>
+      <div>
+        <h3>input() Function</h3>
+        <div class="code-box">
+# Get user input
+name = input("Enter name: ")
+
+# Input is always string!
+age_str = input("Enter age: ")
+age = int(age_str)  # Convert
+
+# Multiple inputs
+x = int(input("x: "))
+y = int(input("y: "))
+print(f"Sum: {x + y}")
+
+# Safe input with default
+try:
+    num = int(input("Number: "))
+except:
+    num = 0
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 21: Common Mistakes -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>⚠️ Common Python Mistakes</h1>
+    <p>Avoid these errors in your code</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="warning">
+        <h4 style="color: #ef4444;">❌ Mistakes to Avoid</h4>
+        <ul style="font-size: 0.85rem;">
+          <li><strong>Indentation:</strong> Python is whitespace-sensitive</li>
+          <li><strong>Type mismatch:</strong> "5" + 5 causes error</li>
+          <li><strong>Missing colon:</strong> if, for, while need :</li>
+          <li><strong>Out of range:</strong> list[10] if only 5 items</li>
+          <li><strong>Mutable defaults:</strong> def func(list=[])</li>
+          <li><strong>String immutability:</strong> Cannot modify strings</li>
+        </ul>
+      </div>
+      <div class="code-box">
+# WRONG: Indentation error
+if x > 5:
+print("too big")  # Not indented!
+
+# RIGHT: Proper indentation
+if x > 5:
+    print("too big")
+
+# WRONG: Type error
+result = "5" + 5
+
+# RIGHT: Convert type
+result = int("5") + 5
+
+# WRONG: Missing colon
+if x > 5
+    print(x)
+
+# RIGHT: Colon required
+if x > 5:
+    print(x)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 22: Best Practices -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>✅ Python Best Practices</h1>
+    <p>Write clean, professional code</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">✓ Do This</h4>
+        <ul style="font-size: 0.85rem;">
+          <li>Use meaningful variable names</li>
+          <li>Add comments explaining logic</li>
+          <li>Use list comprehensions</li>
+          <li>Follow PEP 8 style guide</li>
+          <li>Keep functions small & focused</li>
+          <li>Use f-strings for formatting</li>
+          <li>Test your code regularly</li>
+        </ul>
+      </div>
+      <div class="warning">
+        <h4 style="color: #ef4444;">✗ Don't Do This</h4>
+        <ul style="font-size: 0.85rem;">
+          <li>Use x, y, z as variable names</li>
+          <li>Write code without comments</li>
+          <li>Use nested loops unnecessarily</li>
+          <li>Ignore error messages</li>
+          <li>Write 500-line functions</li>
+          <li>Use % formatting (old style)</li>
+          <li>Ignore warnings from linters</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info" style="margin-top: 10px; font-size: 0.85rem;">
+      <strong>PEP 8:</strong> Official Python style guide for readable, consistent code
+    </div>
+  </div>
+</div>
+
+<!-- Slide 23: Career Tips -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>🚀 AI/ML Career Bootcamp Tips</h1>
+    <p>Master Python to ace interviews and land jobs</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-2">
+      <div class="success">
+        <h4 style="color: #10b981;">Interview Preparation</h4>
+        <ul style="font-size: 0.85rem;">
+          <li>Master data structures deeply</li>
+          <li>Write code on whiteboard</li>
+          <li>Explain algorithms clearly</li>
+          <li>Discuss time/space complexity</li>
+          <li>Practice coding problems daily</li>
+          <li>Contribute to open source</li>
+          <li>Build ML projects end-to-end</li>
+        </ul>
+      </div>
+      <div class="success">
+        <h4 style="color: #10b981;">Portfolio Building</h4>
+        <ul style="font-size: 0.85rem;">
+          <li>Kaggle competitions for proof</li>
+          <li>GitHub with clean projects</li>
+          <li>Real datasets (Netflix, Iris, etc)</li>
+          <li>Document your approach</li>
+          <li>Blog posts explaining ML concepts</li>
+          <li>Deploy models to production</li>
+          <li>Collaborate on team projects</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info" style="font-size: 0.85rem;">
+      <strong>Goal:</strong> From Module 0 (Python) → Module 5 (ML) → Real projects → Dream job at FAANG
+    </div>
+  </div>
+</div>
+
+<!-- Slide 24: Next Steps -->
+<div class="slide">
+  <div class="slide-header">
+    <h1>📚 Your Learning Journey</h1>
+    <p>Path from Python fundamentals to production ML systems</p>
+  </div>
+  <div class="slide-content">
+    <div class="grid-3">
+      <div class="card">
+        <h4>Phase 1: Foundations</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>✓ Module 0: Python basics</li>
+          <li>✓ Data types & structures</li>
+          <li>✓ Functions & modules</li>
+          <li>2-3 weeks</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Phase 2: Libraries</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>✓ NumPy (arrays)</li>
+          <li>✓ Pandas (dataframes)</li>
+          <li>✓ Matplotlib (plots)</li>
+          <li>2-3 weeks</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>Phase 3: ML Algorithms</h4>
+        <ul style="font-size: 0.8rem;">
+          <li>✓ Module 5: ML algorithms</li>
+          <li>✓ Scikit-learn models</li>
+          <li>✓ Real projects</li>
+          <li>4-6 weeks</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 15px; text-align: center;">
+      <p style="font-size: 0.9rem;"><strong>Total Time:</strong> 8-12 weeks to master Python + ML fundamentals</p>
+      <p style="font-size: 0.85rem; color: #666;">Then: Advanced DL, Deployment, Real industry projects</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 25: Thank You & Resources -->
+<div class="slide" style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #0f172a 100%);">
+  <div class="title-slide-content">
+    <h1 style="font-size: 2.8rem; color: #fbbf24;">🎓 Congratulations!</h1>
+    <p style="font-size: 1.2rem; color: white; margin-bottom: 20px;">You now understand Python fundamentals for AI/ML</p>
+    
+    <div style="font-size: 0.95rem; color: white; line-height: 1.8; margin: 20px 0;">
+      <p><strong style="color: #fbbf24;">Essential Resources:</strong></p>
+      <p>📚 Python Official Docs: python.org</p>
+      <p>🎓 Real Python: realpython.com</p>
+      <p>🐍 GeeksforGeeks: geeksforgeeks.org</p>
+      <p>🏆 Kaggle: kaggle.com/learn</p>
+    </div>
+    
+    <p style="font-size: 1rem; color: #fbbf24; margin-top: 30px; font-weight: 600;">Ready for Module 1: NumPy & Data Manipulation! 🚀</p>
+    <p style="font-size: 0.95rem; color: white; opacity: 0.9;">AI Career Bootcamp | November 2025</p>
+  </div>
+</div>
+
+</body>
+</html>
